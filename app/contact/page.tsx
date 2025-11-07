@@ -220,5 +220,3 @@ export default function Contact() {
     </Box>
   )
 }
-
-

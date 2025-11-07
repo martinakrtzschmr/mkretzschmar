@@ -52,5 +52,3 @@ export const updatePassword = async (password: string) => {
   
   return { data, error }
 }
-
-
