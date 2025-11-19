@@ -8,32 +8,27 @@ import {
   Heading,
   SimpleGrid,
   Card,
-  CardBody,
   VStack,
   HStack,
   Icon,
-  FormControl,
-  FormLabel,
+  Field,
   Input,
   Textarea,
   Button,
-  useToast,
 } from '@chakra-ui/react'
+import { toaster } from '../../components/ui/toaster'
 import { FiMail, FiPhone, FiMapPin, FiLinkedin, FiGithub, FiTwitter } from 'react-icons/fi'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 
 export default function Contact() {
-  const toast = useToast()
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    toast({
+    toaster.create({
       title: 'Message sent!',
       description: "I'll get back to you as soon as possible.",
-      status: 'success',
+      type: 'success',
       duration: 5000,
-      isClosable: true,
     })
   }
 
@@ -82,48 +77,53 @@ export default function Contact() {
       
       <Container maxW="6xl" py={8} flex="1">
         {/* Hero Section */}
-        <Stack spacing={8} align="center" textAlign="center" py={16}>
-          <VStack spacing={4}>
+        <Stack gap={8} align="center" textAlign="center" py={16}>
+          <VStack gap={4}>
             <Heading size="2xl" color="brand.500">
               Get In Touch
             </Heading>
             <Text fontSize="xl" color="gray.600" maxW="3xl">
-              I'm always interested in new opportunities and exciting projects. 
-              Let's discuss how we can work together to bring your ideas to life.
+              I&apos;m always interested in new opportunities and exciting projects.
+              Let&apos;s discuss how we can work together to bring your ideas to life.
             </Text>
           </VStack>
         </Stack>
 
-        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={12} py={16}>
+        <SimpleGrid columns={{ base: 1, lg: 2 }} gap={12} py={16}>
           {/* Contact Form */}
-          <Card>
-            <CardBody>
-              <VStack spacing={6} align="stretch">
+          <Card.Root>
+            <Card.Body>
+              <VStack gap={6} align="stretch">
                 <Heading size="lg">Send me a message</Heading>
                 <form onSubmit={handleSubmit}>
-                  <VStack spacing={4}>
-                    <FormControl isRequired>
-                      <FormLabel>Name</FormLabel>
-                      <Input placeholder="Your name" />
-                    </FormControl>
-                    <FormControl isRequired>
-                      <FormLabel>Email</FormLabel>
-                      <Input type="email" placeholder="your.email@example.com" />
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Subject</FormLabel>
-                      <Input placeholder="What's this about?" />
-                    </FormControl>
-                    <FormControl isRequired>
-                      <FormLabel>Message</FormLabel>
+                  <VStack gap={4}>
+                    <Field.Root required>
+                      {/* @ts-expect-error Chakra UI v3 Field.Label types don't match runtime API */}
+                      <Field.Label htmlFor="name">Name</Field.Label>
+                      <Input id="name" placeholder="Your name" />
+                    </Field.Root>
+                    <Field.Root required>
+                      {/* @ts-expect-error Chakra UI v3 Field.Label types don't match runtime API */}
+                      <Field.Label htmlFor="email">Email</Field.Label>
+                      <Input id="email" type="email" placeholder="your.email@example.com" />
+                    </Field.Root>
+                    <Field.Root>
+                      {/* @ts-expect-error Chakra UI v3 Field.Label types don't match runtime API */}
+                      <Field.Label htmlFor="subject">Subject</Field.Label>
+                      <Input id="subject" placeholder="What&apos;s this about?" />
+                    </Field.Root>
+                    <Field.Root required>
+                      {/* @ts-expect-error Chakra UI v3 Field.Label types don't match runtime API */}
+                      <Field.Label htmlFor="message">Message</Field.Label>
                       <Textarea
+                        id="message"
                         placeholder="Tell me about your project or idea..."
                         rows={6}
                       />
-                    </FormControl>
+                    </Field.Root>
                     <Button
                       type="submit"
-                      colorScheme="brand"
+                      colorPalette="brand"
                       size="lg"
                       w="full"
                     >
@@ -132,85 +132,87 @@ export default function Contact() {
                   </VStack>
                 </form>
               </VStack>
-            </CardBody>
-          </Card>
+            </Card.Body>
+          </Card.Root>
 
           {/* Contact Information */}
-          <VStack spacing={8} align="stretch">
-            <Card>
-              <CardBody>
-                <VStack spacing={6} align="stretch">
+          <VStack gap={8} align="stretch">
+            <Card.Root>
+              <Card.Body>
+                <VStack gap={6} align="stretch">
                   <Heading size="lg">Contact Information</Heading>
-                  <VStack spacing={4} align="stretch">
+                  <VStack gap={4} align="stretch">
                     {contactInfo.map((info, index) => (
-                      <HStack key={index} spacing={4}>
+                      <HStack key={index} gap={4}>
                         <Icon as={info.icon} boxSize={6} color="brand.500" />
-                        <VStack align="start" spacing={1}>
+                        <VStack align="start" gap={1}>
                           <Text fontWeight="medium">{info.title}</Text>
                           <Text
-                            as="a"
-                            href={info.link}
+                            asChild
                             color="brand.500"
                             _hover={{ textDecoration: 'underline' }}
                           >
-                            {info.value}
+                            <a href={info.link}>{info.value}</a>
                           </Text>
                         </VStack>
                       </HStack>
                     ))}
                   </VStack>
                 </VStack>
-              </CardBody>
-            </Card>
+              </Card.Body>
+            </Card.Root>
 
-            <Card>
-              <CardBody>
-                <VStack spacing={6} align="stretch">
+            <Card.Root>
+              <Card.Body>
+                <VStack gap={6} align="stretch">
                   <Heading size="lg">Follow Me</Heading>
-                  <HStack spacing={4} justify="center">
+                  <HStack gap={4} justify="center">
                     {socialLinks.map((social, index) => (
                       <Button
                         key={index}
-                        as="a"
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        asChild
                         variant="outline"
-                        leftIcon={<Icon as={social.icon} />}
                         size="sm"
                       >
-                        {social.name}
+                        <a
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Icon as={social.icon} />
+                          {social.name}
+                        </a>
                       </Button>
                     ))}
                   </HStack>
                 </VStack>
-              </CardBody>
-            </Card>
+              </Card.Body>
+            </Card.Root>
 
-            <Card>
-              <CardBody>
-                <VStack spacing={4} align="stretch">
+            <Card.Root>
+              <Card.Body>
+                <VStack gap={4} align="stretch">
                   <Heading size="md">Response Time</Heading>
                   <Text color="gray.600">
-                    I typically respond to messages within 24 hours. For urgent 
+                    I typically respond to messages within 24 hours. For urgent
                     inquiries, please call or send a direct message on LinkedIn.
                   </Text>
                 </VStack>
-              </CardBody>
-            </Card>
+              </Card.Body>
+            </Card.Root>
           </VStack>
         </SimpleGrid>
 
         {/* Call to Action */}
         <Box py={16} textAlign="center">
-          <VStack spacing={6}>
+          <VStack gap={6}>
             <Heading size="xl">Ready to Start Your Project?</Heading>
             <Text fontSize="lg" color="gray.600" maxW="md">
-              Whether you have a specific project in mind or just want to chat about 
-              possibilities, I'd love to hear from you.
+              Whether you have a specific project in mind or just want to chat about
+              possibilities, I&apos;d love to hear from you.
             </Text>
-            <Button colorScheme="brand" size="lg">
-              Let's Talk
+            <Button colorPalette="brand" size="lg">
+              Let&apos;s Talk
             </Button>
           </VStack>
         </Box>

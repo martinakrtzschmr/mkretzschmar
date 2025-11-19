@@ -8,7 +8,6 @@ import {
   Heading,
   SimpleGrid,
   Card,
-  CardBody,
   Progress,
   VStack,
   HStack,
@@ -102,16 +101,16 @@ export default function Skills() {
   return (
     <Box minH="100vh" display="flex" flexDirection="column">
       <Navigation />
-      
+
       <Container maxW="6xl" py={8} flex="1">
         {/* Hero Section */}
-        <Stack spacing={8} align="center" textAlign="center" py={16}>
-          <VStack spacing={4}>
+        <Stack gap={8} align="center" textAlign="center" py={16}>
+          <VStack gap={4}>
             <Heading size="2xl" color="brand.500">
-              Skills & Expertise
+              Skills &amp; Expertise
             </Heading>
             <Text fontSize="xl" color="gray.600" maxW="3xl">
-              A comprehensive overview of my technical skills and the tools I use to 
+              A comprehensive overview of my technical skills and the tools I use to
               bring ideas to life.
             </Text>
           </VStack>
@@ -119,18 +118,18 @@ export default function Skills() {
 
         {/* Skills by Category */}
         <Box py={16}>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={8}>
             {skillCategories.map((category, index) => (
-              <Card key={index}>
-                <CardBody>
-                  <VStack align="start" spacing={6}>
-                    <HStack spacing={4}>
+              <Card.Root key={index}>
+                <Card.Body>
+                  <VStack align="start" gap={6}>
+                    <HStack gap={4}>
                       <Icon as={category.icon} boxSize={8} color={`${category.color}.500`} />
                       <Heading size="md" color={`${category.color}.500`}>
                         {category.title}
                       </Heading>
                     </HStack>
-                    <VStack spacing={4} w="full">
+                    <VStack gap={4} w="full">
                       {category.skills.map((skill, skillIndex) => (
                         <Box key={skillIndex} w="full">
                           <Flex justify="space-between" mb={2}>
@@ -139,18 +138,21 @@ export default function Skills() {
                               {skill.level}%
                             </Text>
                           </Flex>
-                          <Progress
+                          <Progress.Root
                             value={skill.level}
-                            colorScheme={category.color}
+                            colorPalette={category.color}
                             size="sm"
                             borderRadius="full"
-                          />
+                          >
+                            <Progress.Track />
+                            <Progress.Range />
+                          </Progress.Root>
                         </Box>
                       ))}
                     </VStack>
                   </VStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
@@ -158,13 +160,13 @@ export default function Skills() {
         {/* Tools & Technologies */}
         <Box py={16}>
           <Heading size="xl" textAlign="center" mb={8}>
-            Tools & Technologies
+            Tools &amp; Technologies
           </Heading>
           <Flex wrap="wrap" gap={3} justify="center">
             {tools.map((tool, index) => (
               <Badge
                 key={index}
-                colorScheme="brand"
+                colorPalette="brand"
                 variant="subtle"
                 px={4}
                 py={2}
@@ -182,41 +184,41 @@ export default function Skills() {
           <Heading size="xl" textAlign="center" mb={8}>
             Certifications
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={6}>
             {certifications.map((cert, index) => (
-              <Card key={index}>
-                <CardBody textAlign="center">
-                  <VStack spacing={3}>
+              <Card.Root key={index}>
+                <Card.Body textAlign="center">
+                  <VStack gap={3}>
                     <Heading size="md" color="brand.500">
                       {cert.name}
                     </Heading>
                     <Text fontWeight="medium" color="gray.700">
                       {cert.issuer}
                     </Text>
-                    <Badge colorScheme="gray" variant="subtle">
+                    <Badge colorPalette="gray" variant="subtle">
                       {cert.year}
                     </Badge>
                   </VStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
 
         {/* Learning Philosophy */}
         <Box py={16} textAlign="center">
-          <VStack spacing={6}>
+          <VStack gap={6}>
             <Heading size="xl">Continuous Learning</Heading>
             <Text fontSize="lg" color="gray.600" maxW="3xl">
-              Technology evolves rapidly, and I'm committed to staying current with the latest 
-              trends and best practices. I regularly participate in online courses, attend 
+              Technology evolves rapidly, and I&apos;m committed to staying current with the latest
+              trends and best practices. I regularly participate in online courses, attend
               conferences, and contribute to open-source projects to expand my knowledge and skills.
             </Text>
-            <HStack spacing={4}>
-              <Badge colorScheme="green" variant="subtle" px={4} py={2}>
+            <HStack gap={4}>
+              <Badge colorPalette="green" variant="subtle" px={4} py={2}>
                 Currently Learning: AI/ML
               </Badge>
-              <Badge colorScheme="blue" variant="subtle" px={4} py={2}>
+              <Badge colorPalette="blue" variant="subtle" px={4} py={2}>
                 Next Focus: Web3
               </Badge>
             </HStack>

@@ -27,11 +27,14 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
 
     return (
       <ChakraTooltip.Root {...rest}>
+        {/* @ts-expect-error Chakra UI v3 types don't match runtime API */}
         <ChakraTooltip.Trigger asChild>{children}</ChakraTooltip.Trigger>
         <Portal disabled={!portalled} container={portalRef}>
+          {/* @ts-expect-error Chakra UI v3 types don't match runtime API */}
           <ChakraTooltip.Positioner>
             <ChakraTooltip.Content ref={ref} {...contentProps}>
               {showArrow && (
+                /* @ts-expect-error Chakra UI v3 types don't match runtime API */
                 <ChakraTooltip.Arrow>
                   <ChakraTooltip.ArrowTip />
                 </ChakraTooltip.Arrow>

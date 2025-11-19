@@ -6,20 +6,15 @@ import {
   HStack,
   IconButton,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
-  useColorModeValue,
   Stack,
   Text,
   Avatar,
 } from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { LuMenu, LuX } from 'react-icons/lu'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+import { useColorModeValue } from '../../components/ui/color-mode'
 
 const Links = [
   { name: 'Home', href: '/' },
@@ -30,21 +25,23 @@ const Links = [
 ]
 
 export default function Navigation() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
+  const bgColor = useColorModeValue('white', 'gray.900')
 
   return (
     <>
-      <Box bg={useColorModeValue('white', 'gray.900')} px={4} boxShadow="sm">
+      <Box bg={bgColor} px={4} boxShadow="sm">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={'center'}>
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <LuX /> : <LuMenu />}
+          </IconButton>
+          <HStack gap={8} alignItems={'center'}>
             <Box>
               <Text fontSize="xl" fontWeight="bold" color="brand.500">
                 Martin Kretzschmar
@@ -52,14 +49,14 @@ export default function Navigation() {
             </Box>
             <HStack
               as={'nav'}
-              spacing={4}
+              gap={4}
               display={{ base: 'none', md: 'flex' }}
             >
               {Links.map((link) => (
                 <Link key={link.name} href={link.href}>
                   <Button
                     variant="ghost"
-                    colorScheme={pathname === link.href ? 'brand' : 'gray'}
+                    colorPalette={pathname === link.href ? 'brand' : 'gray'}
                     fontWeight={pathname === link.href ? 'bold' : 'normal'}
                   >
                     {link.name}
@@ -69,37 +66,27 @@ export default function Navigation() {
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
-            <Menu>
-              <MenuButton
-                as={Button}
+            <Link href="/login">
+              <Button
                 rounded={'full'}
-                variant={'link'}
+                variant={'ghost'}
                 cursor={'pointer'}
                 minW={0}
               >
-                <Avatar
-                  size={'sm'}
-                  src={'https://avatars.dicebear.com/api/male/username.svg'}
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>Settings</MenuItem>
-                <MenuDivider />
-                <MenuItem>Logout</MenuItem>
-              </MenuList>
-            </Menu>
+                <Avatar.Root size={'sm'} name="User" src={'https://avatars.dicebear.com/api/male/username.svg'} />
+              </Button>
+            </Link>
           </Flex>
         </Flex>
 
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+            <Stack as={'nav'} gap={4}>
               {Links.map((link) => (
                 <Link key={link.name} href={link.href}>
                   <Button
                     variant="ghost"
-                    colorScheme={pathname === link.href ? 'brand' : 'gray'}
+                    colorPalette={pathname === link.href ? 'brand' : 'gray'}
                     fontWeight={pathname === link.href ? 'bold' : 'normal'}
                     w="full"
                     justifyContent="flex-start"

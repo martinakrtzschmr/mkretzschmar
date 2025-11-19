@@ -1,7 +1,6 @@
 import { createClient } from './client'
-import { createClient as createServerClient } from './server'
 
-export const signUp = async (email: string, password: string, userData?: any) => {
+export const signUp = async (email: string, password: string, userData?: Record<string, unknown>) => {
   const supabase = createClient()
   
   const { data, error } = await supabase.auth.signUp({

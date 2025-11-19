@@ -8,12 +8,9 @@ import {
   Heading,
   SimpleGrid,
   Card,
-  CardBody,
   VStack,
-  HStack,
   Avatar,
   Badge,
-  Divider,
 } from '@chakra-ui/react'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
@@ -59,19 +56,15 @@ export default function About() {
       
       <Container maxW="6xl" py={8} flex="1">
         {/* Hero Section */}
-        <Stack spacing={8} align="center" textAlign="center" py={16}>
-          <Avatar
-            size="2xl"
-            src="https://avatars.dicebear.com/api/male/martin.svg"
-            name="Martin Kretzschmar"
-          />
-          <VStack spacing={4}>
+        <Stack gap={8} align="center" textAlign="center" py={16}>
+          <Avatar.Root size="2xl" name="Martin Kretzschmar" src="https://avatars.dicebear.com/api/male/martin.svg" />
+          <VStack gap={4}>
             <Heading size="2xl" color="brand.500">
               About Me
             </Heading>
             <Text fontSize="xl" color="gray.600" maxW="3xl">
-              I'm a passionate full-stack developer with over 5 years of experience creating 
-              digital solutions that make a difference. I love turning complex problems into 
+              I&apos;m a passionate full-stack developer with over 5 years of experience creating
+              digital solutions that make a difference. I love turning complex problems into
               simple, beautiful, and intuitive designs.
             </Text>
           </VStack>
@@ -79,20 +72,20 @@ export default function About() {
 
         {/* Story Section */}
         <Box py={16}>
-          <VStack spacing={8} align="stretch">
+          <VStack gap={8} align="stretch">
             <Heading size="xl" textAlign="center">
               My Story
             </Heading>
             <Text fontSize="lg" color="gray.600" textAlign="center" maxW="4xl" mx="auto">
-              My journey in web development began during my computer science studies, where I 
-              discovered my passion for creating digital experiences. Since then, I've worked 
-              with various technologies and frameworks, always staying up-to-date with the 
+              My journey in web development began during my computer science studies, where I
+              discovered my passion for creating digital experiences. Since then, I&apos;ve worked
+              with various technologies and frameworks, always staying up-to-date with the
               latest trends and best practices in the industry.
             </Text>
             <Text fontSize="lg" color="gray.600" textAlign="center" maxW="4xl" mx="auto">
-              I believe in writing clean, maintainable code and creating user experiences that 
-              are both functional and delightful. When I'm not coding, you can find me exploring 
-              new technologies, contributing to open-source projects, or sharing knowledge with 
+              I believe in writing clean, maintainable code and creating user experiences that
+              are both functional and delightful. When I&apos;m not coding, you can find me exploring
+              new technologies, contributing to open-source projects, or sharing knowledge with
               the developer community.
             </Text>
           </VStack>
@@ -103,19 +96,19 @@ export default function About() {
           <Heading size="xl" textAlign="center" mb={8}>
             Professional Experience
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
             {experiences.map((exp, index) => (
-              <Card key={index} h="full">
-                <CardBody>
-                  <VStack align="start" spacing={4}>
-                    <VStack align="start" spacing={2}>
+              <Card.Root key={index} h="full">
+                <Card.Body>
+                  <VStack align="start" gap={4}>
+                    <VStack align="start" gap={2}>
                       <Heading size="md" color="brand.500">
                         {exp.title}
                       </Heading>
                       <Text fontWeight="bold" color="gray.700">
                         {exp.company}
                       </Text>
-                      <Badge colorScheme="brand" variant="subtle">
+                      <Badge colorPalette="brand" variant="subtle">
                         {exp.period}
                       </Badge>
                     </VStack>
@@ -123,8 +116,8 @@ export default function About() {
                       {exp.description}
                     </Text>
                   </VStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
@@ -134,23 +127,23 @@ export default function About() {
           <Heading size="xl" textAlign="center" mb={8}>
             Education
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} maxW="4xl" mx="auto">
+          <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} maxW="4xl" mx="auto">
             {education.map((edu, index) => (
-              <Card key={index}>
-                <CardBody>
-                  <VStack align="start" spacing={3}>
+              <Card.Root key={index}>
+                <Card.Body>
+                  <VStack align="start" gap={3}>
                     <Heading size="md" color="brand.500">
                       {edu.degree}
                     </Heading>
                     <Text fontWeight="bold" color="gray.700">
                       {edu.school}
                     </Text>
-                    <Badge colorScheme="gray" variant="subtle">
+                    <Badge colorPalette="gray" variant="subtle">
                       {edu.year}
                     </Badge>
                   </VStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
@@ -160,31 +153,31 @@ export default function About() {
           <Heading size="xl" textAlign="center" mb={8}>
             What I Value
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-            <VStack spacing={4} textAlign="center">
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
+            <VStack gap={4} textAlign="center">
               <Heading size="md" color="brand.500">
                 Quality Code
               </Heading>
               <Text color="gray.600">
-                I believe in writing clean, maintainable, and well-documented code that 
+                I believe in writing clean, maintainable, and well-documented code that
                 stands the test of time.
               </Text>
             </VStack>
-            <VStack spacing={4} textAlign="center">
+            <VStack gap={4} textAlign="center">
               <Heading size="md" color="brand.500">
                 User Experience
               </Heading>
               <Text color="gray.600">
-                Every line of code I write is with the end user in mind, creating 
+                Every line of code I write is with the end user in mind, creating
                 intuitive and accessible experiences.
               </Text>
             </VStack>
-            <VStack spacing={4} textAlign="center">
+            <VStack gap={4} textAlign="center">
               <Heading size="md" color="brand.500">
                 Continuous Learning
               </Heading>
               <Text color="gray.600">
-                Technology evolves rapidly, and I'm committed to staying current with 
+                Technology evolves rapidly, and I&apos;m committed to staying current with
                 the latest trends and best practices.
               </Text>
             </VStack>

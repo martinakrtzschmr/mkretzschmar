@@ -9,16 +9,13 @@ import {
   Button,
   SimpleGrid,
   Card,
-  CardBody,
-  CardHeader,
   Badge,
-  Flex,
   Avatar,
   VStack,
   HStack,
   Icon,
 } from '@chakra-ui/react'
-import { FiGithub, FiExternalLink, FiMail, FiMapPin } from 'react-icons/fi'
+import { FiGithub, FiExternalLink, FiMail } from 'react-icons/fi'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 
@@ -53,13 +50,9 @@ export default function Home() {
       
       <Container maxW="6xl" py={8} flex="1">
         {/* Hero Section */}
-        <Stack spacing={8} align="center" textAlign="center" py={16}>
-          <Avatar
-            size="2xl"
-            src="https://avatars.dicebear.com/api/male/martin.svg"
-            name="Martin Kretzschmar"
-          />
-          <VStack spacing={4}>
+        <Stack gap={8} align="center" textAlign="center" py={16}>
+          <Avatar.Root size="2xl" name="Martin Kretzschmar" src="https://avatars.dicebear.com/api/male/martin.svg" />
+          <VStack gap={4}>
             <Heading size="2xl" color="brand.500">
               Martin Kretzschmar
             </Heading>
@@ -67,11 +60,12 @@ export default function Home() {
               Full-Stack Developer passionate about creating innovative web applications
               with modern technologies and clean code.
             </Text>
-            <HStack spacing={4}>
-              <Button colorScheme="brand" size="lg">
+            <HStack gap={4}>
+              <Button colorPalette="brand" size="lg">
                 View My Work
               </Button>
-              <Button variant="outline" size="lg" leftIcon={<FiMail />}>
+              <Button variant="outline" size="lg">
+                <FiMail />
                 Contact Me
               </Button>
             </HStack>
@@ -81,15 +75,15 @@ export default function Home() {
         {/* Skills Section */}
         <Box py={16}>
           <Heading size="xl" textAlign="center" mb={8}>
-            Skills & Technologies
+            Skills &amp; Technologies
           </Heading>
-          <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
+          <SimpleGrid columns={{ base: 2, md: 4 }} gap={4}>
             {['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Supabase', 'Python', 'Docker'].map((skill) => (
-              <Card key={skill}>
-                <CardBody textAlign="center">
+              <Card.Root key={skill}>
+                <Card.Body textAlign="center">
                   <Text fontWeight="bold">{skill}</Text>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
@@ -99,62 +93,66 @@ export default function Home() {
           <Heading size="xl" textAlign="center" mb={8}>
             Featured Projects
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
             {projects.map((project, index) => (
-              <Card key={index} h="full">
-                <CardHeader>
+              <Card.Root key={index} h="full">
+                <Card.Header>
                   <Heading size="md">{project.title}</Heading>
-                </CardHeader>
-                <CardBody>
+                </Card.Header>
+                <Card.Body>
                   <Text color="gray.600" mb={4}>
                     {project.description}
                   </Text>
                   <Stack direction="row" wrap="wrap" gap={2} mb={4}>
                     {project.technologies.map((tech) => (
-                      <Badge key={tech} colorScheme="brand" variant="subtle">
+                      <Badge key={tech} colorPalette="brand" variant="subtle">
                         {tech}
                       </Badge>
                     ))}
                   </Stack>
-                  <HStack spacing={4}>
+                  <HStack gap={4}>
                     <Button
                       size="sm"
                       variant="outline"
-                      leftIcon={<Icon as={FiGithub} />}
-                      as="a"
-                      href={project.githubUrl}
+                      asChild
                     >
-                      Code
+                      <a href={project.githubUrl}>
+                        <Icon as={FiGithub} />
+                        Code
+                      </a>
                     </Button>
                     <Button
                       size="sm"
-                      colorScheme="brand"
-                      leftIcon={<Icon as={FiExternalLink} />}
-                      as="a"
-                      href={project.liveUrl}
+                      colorPalette="brand"
+                      asChild
                     >
-                      Live Demo
+                      <a href={project.liveUrl}>
+                        <Icon as={FiExternalLink} />
+                        Live Demo
+                      </a>
                     </Button>
                   </HStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
 
         {/* Contact Section */}
         <Box py={16} textAlign="center">
-          <VStack spacing={6}>
-            <Heading size="xl">Let's Work Together</Heading>
+          <VStack gap={6}>
+            <Heading size="xl">Let&apos;s Work Together</Heading>
             <Text fontSize="lg" color="gray.600" maxW="md">
-              I'm always interested in new opportunities and exciting projects.
-              Let's discuss how we can bring your ideas to life.
+              I&apos;m always interested in new opportunities and exciting projects.
+              Let&apos;s discuss how we can bring your ideas to life.
             </Text>
-            <HStack spacing={4}>
-              <Button colorScheme="brand" size="lg" leftIcon={<FiMail />}>
+            <HStack gap={4}>
+              <Button colorPalette="brand" size="lg">
+                <FiMail />
                 Get In Touch
               </Button>
-              <Button variant="outline" size="lg" leftIcon={<FiGithub />}>
+              <Button variant="outline" size="lg">
+                <FiGithub />
                 View GitHub
               </Button>
             </HStack>

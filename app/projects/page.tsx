@@ -8,8 +8,6 @@ import {
   Heading,
   SimpleGrid,
   Card,
-  CardBody,
-  CardHeader,
   Badge,
   HStack,
   VStack,
@@ -86,16 +84,16 @@ export default function Projects() {
   return (
     <Box minH="100vh" display="flex" flexDirection="column">
       <Navigation />
-      
+
       <Container maxW="6xl" py={8} flex="1">
         {/* Hero Section */}
-        <Stack spacing={8} align="center" textAlign="center" py={16}>
-          <VStack spacing={4}>
+        <Stack gap={8} align="center" textAlign="center" py={16}>
+          <VStack gap={4}>
             <Heading size="2xl" color="brand.500">
               My Projects
             </Heading>
             <Text fontSize="xl" color="gray.600" maxW="3xl">
-              A collection of projects that showcase my skills and passion for creating 
+              A collection of projects that showcase my skills and passion for creating
               innovative digital solutions.
             </Text>
           </VStack>
@@ -106,55 +104,57 @@ export default function Projects() {
           <Heading size="xl" mb={8}>
             Featured Projects
           </Heading>
-          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8}>
+          <SimpleGrid columns={{ base: 1, lg: 2 }} gap={8}>
             {featuredProjects.map((project, index) => (
-              <Card key={index} overflow="hidden" h="full">
+              <Card.Root key={index} overflow="hidden" h="full">
                 <Image
                   src={project.image}
                   alt={project.title}
                   h="200px"
                   objectFit="cover"
                 />
-                <CardHeader>
+                <Card.Header>
                   <Heading size="md">{project.title}</Heading>
-                </CardHeader>
-                <CardBody>
-                  <VStack align="start" spacing={4}>
+                </Card.Header>
+                <Card.Body>
+                  <VStack align="start" gap={4}>
                     <Text color="gray.600">
                       {project.description}
                     </Text>
                     <Flex wrap="wrap" gap={2}>
                       {project.technologies.map((tech) => (
-                        <Badge key={tech} colorScheme="brand" variant="subtle">
+                        <Badge key={tech} colorPalette="brand" variant="subtle">
                           {tech}
                         </Badge>
                       ))}
                     </Flex>
-                    <HStack spacing={4} w="full">
+                    <HStack gap={4} w="full">
                       <Button
                         size="sm"
                         variant="outline"
-                        leftIcon={<Icon as={FiGithub} />}
-                        as="a"
-                        href={project.githubUrl}
+                        asChild
                         flex="1"
                       >
-                        View Code
+                        <a href={project.githubUrl}>
+                          <Icon as={FiGithub} />
+                          View Code
+                        </a>
                       </Button>
                       <Button
                         size="sm"
-                        colorScheme="brand"
-                        leftIcon={<Icon as={FiExternalLink} />}
-                        as="a"
-                        href={project.liveUrl}
+                        colorPalette="brand"
+                        asChild
                         flex="1"
                       >
-                        Live Demo
+                        <a href={project.liveUrl}>
+                          <Icon as={FiExternalLink} />
+                          Live Demo
+                        </a>
                       </Button>
                     </HStack>
                   </VStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
@@ -164,72 +164,74 @@ export default function Projects() {
           <Heading size="xl" mb={8}>
             Other Projects
           </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
             {otherProjects.map((project, index) => (
-              <Card key={index} h="full">
+              <Card.Root key={index} h="full">
                 <Image
                   src={project.image}
                   alt={project.title}
                   h="150px"
                   objectFit="cover"
                 />
-                <CardHeader>
+                <Card.Header>
                   <Heading size="md">{project.title}</Heading>
-                </CardHeader>
-                <CardBody>
-                  <VStack align="start" spacing={4}>
+                </Card.Header>
+                <Card.Body>
+                  <VStack align="start" gap={4}>
                     <Text color="gray.600" fontSize="sm">
                       {project.description}
                     </Text>
                     <Flex wrap="wrap" gap={1}>
                       {project.technologies.slice(0, 3).map((tech) => (
-                        <Badge key={tech} colorScheme="gray" variant="subtle" size="sm">
+                        <Badge key={tech} colorPalette="gray" variant="subtle" size="sm">
                           {tech}
                         </Badge>
                       ))}
                       {project.technologies.length > 3 && (
-                        <Badge colorScheme="gray" variant="subtle" size="sm">
+                        <Badge colorPalette="gray" variant="subtle" size="sm">
                           +{project.technologies.length - 3}
                         </Badge>
                       )}
                     </Flex>
-                    <HStack spacing={2} w="full">
+                    <HStack gap={2} w="full">
                       <Button
                         size="xs"
                         variant="outline"
-                        leftIcon={<Icon as={FiGithub} />}
-                        as="a"
-                        href={project.githubUrl}
+                        asChild
                         flex="1"
                       >
-                        Code
+                        <a href={project.githubUrl}>
+                          <Icon as={FiGithub} />
+                          Code
+                        </a>
                       </Button>
                       <Button
                         size="xs"
-                        colorScheme="brand"
-                        leftIcon={<Icon as={FiExternalLink} />}
-                        as="a"
-                        href={project.liveUrl}
+                        colorPalette="brand"
+                        asChild
                         flex="1"
                       >
-                        Demo
+                        <a href={project.liveUrl}>
+                          <Icon as={FiExternalLink} />
+                          Demo
+                        </a>
                       </Button>
                     </HStack>
                   </VStack>
-                </CardBody>
-              </Card>
+                </Card.Body>
+              </Card.Root>
             ))}
           </SimpleGrid>
         </Box>
 
         {/* Call to Action */}
         <Box py={16} textAlign="center">
-          <VStack spacing={6}>
+          <VStack gap={6}>
             <Heading size="xl">Interested in Working Together?</Heading>
             <Text fontSize="lg" color="gray.600" maxW="md">
-              I'm always excited to take on new challenges and create amazing digital experiences.
+              I&apos;m always excited to take on new challenges and create amazing digital experiences.
             </Text>
-            <Button colorScheme="brand" size="lg">
+            <Button colorPalette="brand" size="lg">
               Get In Touch
             </Button>
           </VStack>

@@ -3,29 +3,25 @@
 import {
   Box,
   Container,
-  Stack,
   Text,
   Heading,
   Card,
-  CardBody,
   VStack,
-  FormControl,
-  FormLabel,
+  Field,
   Input,
   Button,
   Link,
-  useToast,
-  Divider,
+  Separator,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { signIn } from '../../lib/supabase/auth-helpers'
 import { useRouter } from 'next/navigation'
+import { toaster } from '../../components/ui/toaster'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const toast = useToast()
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,33 +29,30 @@ export default function Login() {
     setLoading(true)
 
     try {
-      const { data, error } = await signIn(email, password)
-      
+      const { error } = await signIn(email, password)
+
       if (error) {
-        toast({
+        toaster.create({
           title: 'Error',
           description: error.message,
-          status: 'error',
+          type: 'error',
           duration: 5000,
-          isClosable: true,
         })
       } else {
-        toast({
+        toaster.create({
           title: 'Success',
           description: 'Welcome back!',
-          status: 'success',
+          type: 'success',
           duration: 3000,
-          isClosable: true,
         })
         router.push('/')
       }
-    } catch (error) {
-      toast({
+    } catch {
+      toaster.create({
         title: 'Error',
         description: 'An unexpected error occurred',
-        status: 'error',
+        type: 'error',
         duration: 5000,
-        isClosable: true,
       })
     } finally {
       setLoading(false)
@@ -69,10 +62,10 @@ export default function Login() {
   return (
     <Box minH="100vh" display="flex" alignItems="center" justifyContent="center" bg="gray.50">
       <Container maxW="md">
-        <Card>
-          <CardBody>
-            <VStack spacing={8}>
-              <VStack spacing={4} textAlign="center">
+        <Card.Root>
+          <Card.Body>
+            <VStack gap={8}>
+              <VStack gap={4} textAlign="center">
                 <Heading size="xl" color="brand.500">
                   Welcome Back
                 </Heading>
@@ -82,33 +75,37 @@ export default function Login() {
               </VStack>
 
               <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                <VStack spacing={4}>
-                  <FormControl isRequired>
-                    <FormLabel>Email</FormLabel>
+                <VStack gap={4}>
+                  <Field.Root required>
+                    {/* @ts-expect-error Chakra UI v3 Field.Label types don't match runtime API */}
+                    <Field.Label htmlFor="login-email">Email</Field.Label>
                     <Input
+                      id="login-email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your.email@example.com"
                     />
-                  </FormControl>
-                  
-                  <FormControl isRequired>
-                    <FormLabel>Password</FormLabel>
+                  </Field.Root>
+
+                  <Field.Root required>
+                    {/* @ts-expect-error Chakra UI v3 Field.Label types don't match runtime API */}
+                    <Field.Label htmlFor="login-password">Password</Field.Label>
                     <Input
+                      id="login-password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
                     />
-                  </FormControl>
+                  </Field.Root>
 
                   <Button
                     type="submit"
-                    colorScheme="brand"
+                    colorPalette="brand"
                     size="lg"
                     w="full"
-                    isLoading={loading}
+                    loading={loading}
                     loadingText="Signing in..."
                   >
                     Sign In
@@ -116,11 +113,11 @@ export default function Login() {
                 </VStack>
               </form>
 
-              <Divider />
+              <Separator />
 
-              <VStack spacing={4} w="full">
+              <VStack gap={4} w="full">
                 <Text fontSize="sm" color="gray.600">
-                  Don't have an account?{' '}
+                  Don&apos;t have an account?{' '}
                   <Link href="/signup" color="brand.500" fontWeight="medium">
                     Sign up
                   </Link>
@@ -130,8 +127,8 @@ export default function Login() {
                 </Link>
               </VStack>
             </VStack>
-          </CardBody>
-        </Card>
+          </Card.Body>
+        </Card.Root>
       </Container>
     </Box>
   )
